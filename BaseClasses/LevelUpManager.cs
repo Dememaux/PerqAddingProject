@@ -16,7 +16,9 @@ namespace PerqAddingProject.BaseClasses
         int baseClassWeight = 2;
         int secondaryClassWeight = 1;
 
-        int numberOfPerqsToChooseFromOnLevelUP = 3;
+        int numberOfPerqsToChooseFromOnLevelUp = 3;
+        int numberOfPerqsToChooseFromOnLevelDown = 3;
+
 
         private Dictionary<CharacterClass, PerqPool> ClassDictionary
             = new Dictionary<CharacterClass, PerqPool>();
@@ -38,6 +40,8 @@ namespace PerqAddingProject.BaseClasses
             AddPlayerSelectedPerq(perqsForSelection, character);
 
         }
+
+        #region LevelUp methods
 
         private void IncreaseCharacterLevel(Character character)
         {
@@ -69,7 +73,7 @@ namespace PerqAddingProject.BaseClasses
             Console.WriteLine();
 
             character.AddPerq(ShowPerqsToSelect(GetPerqsForSelection(perqsAvailable,
-                numberOfPerqsToChooseFromOnLevelUP)));
+                numberOfPerqsToChooseFromOnLevelUp)));
         }
 
         private List<IPerq> GetWeightedPerqsFromPool(PerqPool pool, int amount)
@@ -82,7 +86,7 @@ namespace PerqAddingProject.BaseClasses
         {
             List<IPerq> perqsForSelection = new List<IPerq>();
 
-            while (perqsForSelection.Count < numberOfPerqsToChooseFromOnLevelUP)
+            while (perqsForSelection.Count < numberOfPerqsToChooseFromOnLevelUp)
             {
                 Random random = new Random();
                 int a = random.Next(0, perqsPossibleToGet.Count());
@@ -125,33 +129,55 @@ namespace PerqAddingProject.BaseClasses
             return perqs[b - 1];
         }
 
+        #endregion
+
         public void LevelDown(Character character)
         {
-            character.Level--;
-
-            Console.WriteLine();
-            Console.Write("You level down! Current level: " + character.Level);
-            Console.WriteLine();
+            DecreaseCharacterLevel(character);
 
             if (character == null) return;
             if (character.Perqs.Count == 0) return;
 
             List<IPerq> perqsPossibleToLose = character.Perqs;
 
-            while (perqsPossibleToLose.Count > numberOfPerqsToChooseFromOnLevelUP)
+            GetPerqsPossibleToLose(perqsPossibleToLose, character);
+
+            RemovePlayerSelectedPerq(perqsPossibleToLose, character);
+        }
+
+        #region LevelDown methods
+
+        private void DecreaseCharacterLevel(Character character)
+        {
+            character.Level--;
+
+            Console.WriteLine();
+            Console.Write("You level down! Current level: " + character.Level);
+            Console.WriteLine();
+        }
+
+        private void GetPerqsPossibleToLose(List<IPerq> perqsForSelection, Character character)
+        {
+            while (perqsForSelection.Count > numberOfPerqsToChooseFromOnLevelDown)
             {
                 Random random = new Random();
-                int a = random.Next(0, perqsPossibleToLose.Count);
+                int a = random.Next(0, perqsForSelection.Count);
 
-                perqsPossibleToLose.RemoveAt(a);
+                perqsForSelection.RemoveAt(a);
             }
+        }
 
+        private void RemovePlayerSelectedPerq(List<IPerq> perqsForSelection, Character character)
+        {
             Console.WriteLine();
             Console.WriteLine("Choose a perq to lose");
             Console.WriteLine();
 
-            character.RemovePerq(ShowPerqsToSelect(perqsPossibleToLose));
+            character.RemovePerq(ShowPerqsToSelect(perqsForSelection));
         }
+
+
+        #endregion
 
         #endregion
 
