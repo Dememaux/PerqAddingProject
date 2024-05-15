@@ -27,27 +27,48 @@ namespace PerqAddingProject.BaseClasses
 
         public void LevelUp(Character character)
         {
+            IncreaseCharacterLevel(character);
+
+            List<IPerq> perqsForSelection = new List<IPerq>();
+
+            GetMainClassPerqs(perqsForSelection, character);
+
+            GetSecondaryClassPerqs(perqsForSelection, character);
+
+            AddPlayerSelectedPerq(perqsForSelection, character);
+
+        }
+
+        private void IncreaseCharacterLevel(Character character)
+        {
             character.Level++;
 
             Console.WriteLine();
             Console.Write("You level up! Current level: " + character.Level);
             Console.WriteLine();
+        }
 
-            List<IPerq> perqsPossibleToGet = new List<IPerq>();
-
-            perqsPossibleToGet.AddRange(GetWeightedPerqsFromPool(GetPoolByClass(character.MainClass),
+        private void GetMainClassPerqs(List<IPerq> perqsAvailable, Character character)
+        {
+            perqsAvailable.AddRange(GetWeightedPerqsFromPool(GetPoolByClass(character.MainClass),
                 baseClassWeight));
+        }
 
+        private void GetSecondaryClassPerqs(List<IPerq> perqsAvailable, Character character)
+        {
             foreach (CharacterClass characterClass in character.SecondaryClass)
             {
-                perqsPossibleToGet.AddRange(GetWeightedPerqsFromPool(GetPoolByClass(characterClass),
+                perqsAvailable.AddRange(GetWeightedPerqsFromPool(GetPoolByClass(characterClass),
                     secondaryClassWeight));
             }
+        }
 
+        private void AddPlayerSelectedPerq(List<IPerq> perqsAvailable, Character character)
+        {
             Console.WriteLine("Choose a perq to get");
             Console.WriteLine();
 
-            character.AddPerq(ShowPerqsToSelect(GetPerqsForSelection(perqsPossibleToGet,
+            character.AddPerq(ShowPerqsToSelect(GetPerqsForSelection(perqsAvailable,
                 numberOfPerqsToChooseFromOnLevelUP)));
         }
 
