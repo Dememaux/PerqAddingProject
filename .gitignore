@@ -2,6 +2,8 @@
 PerqAddingProject.csproj
 #ignore sln file
 PerqAddingProject.sln
+#ignore .vs file
+.vs
 #ignore irrelevant folders
 bin/
 obj/
