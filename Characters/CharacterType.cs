@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PerqAddingProject.Enums
 {
-    public enum CharacterClass
+    public enum CharacterType
     {
         None,
         Healthy,

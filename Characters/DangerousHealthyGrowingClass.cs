@@ -12,9 +12,9 @@ namespace PerqAddingProject.Characters
     {
         public DangerousHealthyGrowingClass()
         {
-            SetMainClass(CharacterClass.Dangerous);
-            AddSecondaryClass(CharacterClass.Healthy);
-            AddSecondaryClass(CharacterClass.Growing);
+            SetMainType(CharacterType.Dangerous);
+            AddSecondaryType(CharacterType.Healthy);
+            AddSecondaryType(CharacterType.Growing);
         }
     }
 }

@@ -13,15 +13,15 @@ namespace PerqAddingProject.BaseClasses
     {
         #region Fields
 
-        int baseClassWeight = 2;
-        int secondaryClassWeight = 1;
+        int mainTypeWeight = 2;
+        int secondaryTypeWeight = 1;
 
         int numberOfPerqsToChooseFromOnLevelUp = 3;
         int numberOfPerqsToChooseFromOnLevelDown = 3;
 
 
-        private Dictionary<CharacterClass, PerqPool> ClassDictionary
-            = new Dictionary<CharacterClass, PerqPool>();
+        private Dictionary<CharacterType, PerqPool> TypeDictionary
+            = new Dictionary<CharacterType, PerqPool>();
 
         #endregion
 
@@ -33,9 +33,9 @@ namespace PerqAddingProject.BaseClasses
 
             List<IPerq> perqsForSelection = new List<IPerq>();
 
-            GetMainClassPerqs(perqsForSelection, character);
+            GetMainTypePerqs(perqsForSelection, character);
 
-            GetSecondaryClassPerqs(perqsForSelection, character);
+            GetSecondaryTypePerqs(perqsForSelection, character);
 
             AddPlayerSelectedPerq(perqsForSelection, character);
 
@@ -52,18 +52,18 @@ namespace PerqAddingProject.BaseClasses
             Console.WriteLine();
         }
 
-        private void GetMainClassPerqs(List<IPerq> perqsAvailable, Character character)
+        private void GetMainTypePerqs(List<IPerq> perqsAvailable, Character character)
         {
-            perqsAvailable.AddRange(GetWeightedPerqsFromPool(GetPoolByClass(character.MainClass),
-                baseClassWeight));
+            perqsAvailable.AddRange(GetWeightedPerqsFromPool(GetPoolByType(character.MainType),
+                mainTypeWeight));
         }
 
-        private void GetSecondaryClassPerqs(List<IPerq> perqsAvailable, Character character)
+        private void GetSecondaryTypePerqs(List<IPerq> perqsAvailable, Character character)
         {
-            foreach (CharacterClass characterClass in character.SecondaryClass)
+            foreach (CharacterType characterType in character.SecondaryType)
             {
-                perqsAvailable.AddRange(GetWeightedPerqsFromPool(GetPoolByClass(characterClass),
-                    secondaryClassWeight));
+                perqsAvailable.AddRange(GetWeightedPerqsFromPool(GetPoolByType(characterType),
+                    secondaryTypeWeight));
             }
         }
 
@@ -98,9 +98,9 @@ namespace PerqAddingProject.BaseClasses
             return perqsForSelection;
         }
 
-        private PerqPool GetPoolByClass(CharacterClass characterClass)
+        private PerqPool GetPoolByType(CharacterType characterType)
         {
-            return ClassDictionary[characterClass];
+            return TypeDictionary[characterType];
         }
 
         private IPerq ShowPerqsToSelect(List<IPerq> perqs)
@@ -185,9 +185,9 @@ namespace PerqAddingProject.BaseClasses
 
         public LevelUpManager()
         {
-            ClassDictionary.Add(CharacterClass.Healthy, new HealthPool());
-            ClassDictionary.Add(CharacterClass.Growing, new DamageOnAttackPool());
-            ClassDictionary.Add(CharacterClass.Dangerous, new DamagePool());
+            TypeDictionary.Add(CharacterType.Healthy, new HealthPool());
+            TypeDictionary.Add(CharacterType.Growing, new DamageOnAttackPool());
+            TypeDictionary.Add(CharacterType.Dangerous, new DamagePool());
         }
 
         #endregion

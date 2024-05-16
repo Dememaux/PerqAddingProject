@@ -18,8 +18,8 @@ namespace PerqAddingProject.BaseClasses
 
         List<IPerq> characterPerqs = new List<IPerq>();
 
-        CharacterClass mainClass;
-        List<CharacterClass> secondaryClasses = new List<CharacterClass>();
+        CharacterType mainType;
+        List<CharacterType> secondaryTypes = new List<CharacterType>();
 
         #endregion
 
@@ -48,42 +48,42 @@ namespace PerqAddingProject.BaseClasses
             get { return characterPerqs; }
         }
 
-        public CharacterClass MainClass
+        public CharacterType MainType
         {
-            get { return mainClass; }
-            set { mainClass = value; }
+            get { return mainType; }
+            set { mainType = value; }
         }
 
-        public List<CharacterClass> SecondaryClass
+        public List<CharacterType> SecondaryType
         {
-            get { return secondaryClasses; }
-            set { secondaryClasses = value; }
+            get { return secondaryTypes; }
+            set { secondaryTypes = value; }
         }
 
         #endregion
 
         #region Methods
 
-        #region Class Change Methods
+        #region Type Change Methods
 
-        public void SetMainClass(CharacterClass mainClass)
+        public void SetMainType(CharacterType mainType)
         {
-            MainClass = mainClass;
+            MainType = mainType;
         }
 
-        public void AddSecondaryClass(CharacterClass secondaryClass)
+        public void AddSecondaryType(CharacterType secondaryType)
         {
-            SecondaryClass.Add(secondaryClass);
+            SecondaryType.Add(secondaryType);
         }
 
-        public void RemoveSecondaryClass(CharacterClass secondaryClass)
+        public void RemoveSecondaryType(CharacterType secondaryType)
         {
-            SecondaryClass.Remove(secondaryClass);
+            SecondaryType.Remove(secondaryType);
         }
 
-        public void ClearSecondaryClasses()
+        public void ClearSecondaryTypes()
         {
-            SecondaryClass.Clear();
+            SecondaryType.Clear();
         }
 
         #endregion

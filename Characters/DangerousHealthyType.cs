@@ -8,12 +8,12 @@ using PerqAddingProject.Enums;
 
 namespace PerqAddingProject.Characters
 {
-    public class DangerousHealthyClass : Character
+    public class DangerousHealthyType : Character
     {
-        public DangerousHealthyClass()
+        public DangerousHealthyType()
         {
-            SetMainClass(CharacterClass.Healthy);
-            AddSecondaryClass(CharacterClass.Dangerous);
+            SetMainType(CharacterType.Healthy);
+            AddSecondaryType(CharacterType.Dangerous);
         }
     }
 }
