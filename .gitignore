@@ -1,7 +1,7 @@
-# ignore csproj files
-.csproj
-#ignore sln files
-.sln
+# ignore csproj file
+PerqAddingProject.csproj
+#ignore sln file
+PerqAddingProject.sln
 #ignore irrelevant folders
 bin/
 obj/
